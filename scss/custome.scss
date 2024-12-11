@@ -1,1 +1,54 @@
+$position-values: (
+    0: 0,
+    5:5px,
+    25:25px,
+    50: 50%,
+    100: 100%) !default;
+
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+
+:root {
+    --bs-body-font-family: "Manrope", sans-serif;
+}
+h1,h2,h3,h4,h5{
+    font-family: "Anton",sans-serif;
+}
+header {
+    background-image: url("../assets/Background.png");
+    height: 665px;
+}
+header h1{
+    font-size: 44px;
+    color: $yellow;
+}
+main{
+    background-color: $gray-200;
+}
+.h-100p {    
+    height: 100%;
+
+}
+.h-60px{
+    height: 60px;
+}
+.mt-35{
+    margin-top: .35em;
+}
+.btn-bg-black {
+    background-color: $black;
+    color: $white;
+}
+.btn-bg-black:hover {
+    background-color: $yellow;
+}
+.dropdown-item:hover,
+.dropdown-item:focus{
+    background-color: $yellow;
+}
+.selected {
+    background-color: $yellow;
+}
+.selected:hover {
+    font-weight: bold;
+}

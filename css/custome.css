@@ -7313,6 +7313,14 @@ textarea.form-control-lg {
   top: 0 !important;
 }
 
+.top-5 {
+  top: 5px !important;
+}
+
+.top-25 {
+  top: 25px !important;
+}
+
 .top-50 {
   top: 50% !important;
 }
@@ -7323,6 +7331,14 @@ textarea.form-control-lg {
 
 .bottom-0 {
   bottom: 0 !important;
+}
+
+.bottom-5 {
+  bottom: 5px !important;
+}
+
+.bottom-25 {
+  bottom: 25px !important;
 }
 
 .bottom-50 {
@@ -7337,6 +7353,14 @@ textarea.form-control-lg {
   left: 0 !important;
 }
 
+.start-5 {
+  left: 5px !important;
+}
+
+.start-25 {
+  left: 25px !important;
+}
+
 .start-50 {
   left: 50% !important;
 }
@@ -7347,6 +7371,14 @@ textarea.form-control-lg {
 
 .end-0 {
   right: 0 !important;
+}
+
+.end-5 {
+  right: 5px !important;
+}
+
+.end-25 {
+  right: 25px !important;
 }
 
 .end-50 {
@@ -11843,6 +11875,61 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+}
+:root {
+  --bs-body-font-family: "Manrope", sans-serif;
+}
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5 {
+  font-family: "Anton", sans-serif;
+}
+
+header {
+  background-image: url("../assets/Background.png");
+  height: 665px;
+}
+
+header h1, header .h1 {
+  font-size: 44px;
+  color: #ffc107;
+}
+
+main {
+  background-color: #e9ecef;
+}
+
+.h-100p {
+  height: 100%;
+}
+
+.h-60px {
+  height: 60px;
+}
+
+.mt-35 {
+  margin-top: 0.35em;
+}
+
+.btn-bg-black {
+  background-color: #000;
+  color: #fff;
+}
+
+.btn-bg-black:hover {
+  background-color: #ffc107;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: #ffc107;
+}
+
+.selected {
+  background-color: #ffc107;
+}
+
+.selected:hover {
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=custome.css.map */
