@@ -4,7 +4,20 @@ $position-values: (
     25:25px,
     50: 50%,
     100: 100%) !default;
-
+$utilities:
+    ("height": (property: height,
+    class: h,
+    values: (
+        25: 25%,
+        50: 50%,
+        75: 75%,
+        100: 100%,
+        60px:60px,
+        100px:100px,
+        150px:150px,
+        300px:300px,
+        550px:550px,
+        auto: auto)));
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 
@@ -25,12 +38,9 @@ header h1{
 main{
     background-color: $gray-200;
 }
-.h-100p {    
-    height: 100%;
-
-}
-.h-60px{
-    height: 60px;
+.card-img-top{
+    height: 300px;
+    object-fit: cover;
 }
 .mt-35{
     margin-top: .35em;

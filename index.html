@@ -227,87 +227,43 @@
 				</div>
 			</section>
 			<!-- Recipe cards section -->
-			<section
-				class="mt-5 row align-items-start"
-				id="recipeCards"
-			></section>
+			<section class="mt-5 row align-items-start" id="recipeCards">
+				<article class="col-12 d-none" data-message>
+					Aucune recette ne correspond à votre recherche
+				</article>
+			</section>
 		</main>
-		<template>
+		<template data-recipe-template>
 			<article class="col-4">
 				<div class="card mb-3 position-relative">
-					<img
-						src="assets/photos/Recette01.jpg"
-						class="card-img-top"
-						alt=""
-					/>
+					<img src="" class="card-img-top" alt="" data-recipe-img />
 					<span
+						data-recipe-time
 						class="w-25 position-absolute top-25 end-25 rounded-pill text-center bg-warning"
-						>15min</span
-					>
-					<div class="card-body">
-						<h5 class="card-title">Card title 1</h5>
+					></span>
+					<div class="card-body h-550px">
+						<h5 class="card-title" data-recipe-title></h5>
 						<p class="text-body-secondary text-uppercase">
 							Recette
 						</p>
-						<p class="card-text">
-							This is a wider card with supporting text below as a
-							natural lead-in to additional content. This content
-							is a little bit longer.
+						<p
+							class="h-150px card-text text-wrap text-truncate"
+							data-recipe-desc
+						></p>
+						<p class="text-body-secondary text-uppercase">
+							Ingrédients
 						</p>
-						<div class="row">
-							<p class="text-body-secondary text-uppercase">
-								Ingrédients
-							</p>
-							<div class="col-6">
-								<p class="card-text clearfix">
-									Lait de coco
-									<small
-										class="float-start text-body-secondary"
-										>400 ml</small
-									>
-								</p>
-								<p class="card-text clearfix">
-									Lait de coco
-									<small
-										class="float-start text-body-secondary"
-										>400 ml</small
-									>
-								</p>
-								<p class="card-text clearfix">
-									Lait de coco
-									<small
-										class="float-start text-body-secondary"
-										>400 ml</small
-									>
-								</p>
-							</div>
-							<div class="col-6">
-								<p class="card-text clearfix">
-									Lait de coco
-									<small
-										class="float-start text-body-secondary"
-										>400 ml</small
-									>
-								</p>
-								<p class="card-text clearfix">
-									Lait de coco
-									<small
-										class="float-start text-body-secondary"
-										>400 ml</small
-									>
-								</p>
-								<p class="card-text clearfix">
-									Lait de coco
-									<small
-										class="float-start text-body-secondary"
-										>400 ml</small
-									>
-								</p>
-							</div>
-						</div>
+						<div class="row" data-ingredients-container></div>
 					</div>
 				</div>
 			</article>
+		</template>
+		<template data-ingredients-template>
+			<div class="col-6">
+				<p class="mb-0 card-text small" data-ingredient-title></p>
+				<small class="text-body-secondary" data-ingredient-qty></small>
+				<small class="text-body-secondary" data-ingredient-unit></small>
+			</div>
 		</template>
 		<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 		<script src="js/main.js" type="module"></script>

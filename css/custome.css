@@ -7611,6 +7611,26 @@ textarea.form-control-lg {
   height: 100% !important;
 }
 
+.h-60px {
+  height: 60px !important;
+}
+
+.h-100px {
+  height: 100px !important;
+}
+
+.h-150px {
+  height: 150px !important;
+}
+
+.h-300px {
+  height: 300px !important;
+}
+
+.h-550px {
+  height: 550px !important;
+}
+
 .h-auto {
   height: auto !important;
 }
@@ -11898,12 +11918,9 @@ main {
   background-color: #e9ecef;
 }
 
-.h-100p {
-  height: 100%;
-}
-
-.h-60px {
-  height: 60px;
+.card-img-top {
+  height: 300px;
+  object-fit: cover;
 }
 
 .mt-35 {
