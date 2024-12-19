@@ -63,7 +63,7 @@
 						<!-- chevron bas -->
 						<i class="bi bi-chevron-compact-down float-end"></i>
 					</button>
-					<ul class="dropdown-menu">
+					<ul class="dropdown-menu" data-filter-ingredients>
 						<li>
 							<form
 								class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
@@ -82,26 +82,6 @@
 									class="btn position-absolute bi bi-search end-5"
 								></button>
 							</form>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Ingrédient 1</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Ingrédient 2</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Ingrédient 3</a>
-						</li>
-						<li>
-							<a
-								class="dropdown-item selected position-relative"
-								href="#"
-								>Ingrédient 4
-								<button
-									type="button"
-									class="btn position-absolute p-0 top-5 end-5 bi bi-x-circle-fill"
-								></button>
-							</a>
 						</li>
 					</ul>
 				</div>
@@ -116,7 +96,7 @@
 						<!-- chevron bas -->
 						<i class="bi bi-chevron-compact-down float-end"></i>
 					</button>
-					<ul class="dropdown-menu">
+					<ul class="dropdown-menu" data-filter-appliance>
 						<li>
 							<form
 								class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
@@ -125,36 +105,16 @@
 								<input
 									class="form-control w-100"
 									type="search"
-									name="searchIng"
-									id="searchIng"
+									name="searchAppliance"
+									id="searchAppliance"
 									placeholder=""
-									aria-label="Rechercher un ingrédient"
+									aria-label="Rechercher un appareil"
 								/>
 								<button
 									type="button"
 									class="btn position-absolute bi bi-search end-5"
 								></button>
 							</form>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Appareils 1</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Appareils 2</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Appareils 3</a>
-						</li>
-						<li>
-							<a
-								class="dropdown-item selected position-relative"
-								href="#"
-								>Appareils 4
-								<button
-									type="button"
-									class="btn position-absolute p-0 top-5 end-5 bi bi-x-circle-fill"
-								></button>
-							</a>
 						</li>
 					</ul>
 				</div>
@@ -165,11 +125,11 @@
 						data-bs-toggle="dropdown"
 						aria-expanded="false"
 					>
-						Outils
+						Ustensiles
 						<!-- chevron bas -->
 						<i class="bi bi-chevron-compact-down float-end"></i>
 					</button>
-					<ul class="dropdown-menu">
+					<ul class="dropdown-menu" data-filter-ustensils>
 						<li>
 							<form
 								class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
@@ -178,36 +138,16 @@
 								<input
 									class="form-control w-100"
 									type="search"
-									name="searchIng"
-									id="searchIng"
+									name="searchUstensils"
+									id="searchUstensils"
 									placeholder=""
-									aria-label="Rechercher un ingrédient"
+									aria-label="Rechercher un ustensile"
 								/>
 								<button
 									type="button"
 									class="btn position-absolute bi bi-search end-5"
 								></button>
 							</form>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Outils 1</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Outils 2</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Outils 3</a>
-						</li>
-						<li>
-							<a
-								class="dropdown-item selected position-relative"
-								href="#"
-								>Outils 4
-								<button
-									type="button"
-									class="btn position-absolute p-0 top-5 end-5 bi bi-x-circle-fill"
-								></button>
-							</a>
 						</li>
 					</ul>
 				</div>
@@ -233,6 +173,15 @@
 				</article>
 			</section>
 		</main>
+		<template data-filter-list>
+			<li><a class="dropdown-item" href="#" data-filter-link></a></li>
+		</template>
+		<template data-filter-button>
+			<button
+				type="button"
+				class="btn position-absolute p-0 top-5 end-5 bi bi-x-circle-fill"
+			></button>
+		</template>
 		<template data-recipe-template>
 			<article class="col-4">
 				<div class="card mb-3 position-relative">
