@@ -63,7 +63,10 @@
 						<!-- chevron bas -->
 						<i class="bi bi-chevron-compact-down float-end"></i>
 					</button>
-					<ul class="dropdown-menu" data-filter-ingredients>
+					<ul
+						class="dropdown-menu h-250px overflow-y-scroll"
+						data-filter-ingredients
+					>
 						<li>
 							<form
 								class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
@@ -96,7 +99,10 @@
 						<!-- chevron bas -->
 						<i class="bi bi-chevron-compact-down float-end"></i>
 					</button>
-					<ul class="dropdown-menu" data-filter-appliance>
+					<ul
+						class="dropdown-menu h-250px overflow-y-scroll"
+						data-filter-appliances
+					>
 						<li>
 							<form
 								class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
@@ -129,7 +135,10 @@
 						<!-- chevron bas -->
 						<i class="bi bi-chevron-compact-down float-end"></i>
 					</button>
-					<ul class="dropdown-menu" data-filter-ustensils>
+					<ul
+						class="dropdown-menu h-250px overflow-y-scroll"
+						data-filter-ustensils
+					>
 						<li>
 							<form
 								class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
@@ -167,11 +176,13 @@
 				</div>
 			</section>
 			<!-- Recipe cards section -->
-			<section class="mt-5 row align-items-start" id="recipeCards">
-				<article class="col-12 d-none" data-message>
-					Aucune recette ne correspond à votre recherche
-				</article>
-			</section>
+			<section
+				class="mt-5 row align-items-start"
+				id="recipeCards"
+			></section>
+			<p class="col-12 fs-5 d-none" data-message>
+				Aucune recette ne correspond à votre recherche
+			</p>
 		</main>
 		<template data-filter-list>
 			<li><a class="dropdown-item" href="#" data-filter-link></a></li>

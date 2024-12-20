@@ -7623,6 +7623,10 @@ textarea.form-control-lg {
   height: 150px !important;
 }
 
+.h-250px {
+  height: 250px !important;
+}
+
 .h-300px {
   height: 300px !important;
 }
