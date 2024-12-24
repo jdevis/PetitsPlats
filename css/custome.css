@@ -7317,6 +7317,10 @@ textarea.form-control-lg {
   top: 5px !important;
 }
 
+.top-15 {
+  top: 15px !important;
+}
+
 .top-25 {
   top: 25px !important;
 }
@@ -7335,6 +7339,10 @@ textarea.form-control-lg {
 
 .bottom-5 {
   bottom: 5px !important;
+}
+
+.bottom-15 {
+  bottom: 15px !important;
 }
 
 .bottom-25 {
@@ -7357,6 +7365,10 @@ textarea.form-control-lg {
   left: 5px !important;
 }
 
+.start-15 {
+  left: 15px !important;
+}
+
 .start-25 {
   left: 25px !important;
 }
@@ -7375,6 +7387,10 @@ textarea.form-control-lg {
 
 .end-5 {
   right: 5px !important;
+}
+
+.end-15 {
+  right: 15px !important;
 }
 
 .end-25 {
@@ -7573,6 +7589,10 @@ textarea.form-control-lg {
 
 .w-75 {
   width: 75% !important;
+}
+
+.w-95 {
+  width: 95% !important;
 }
 
 .w-100 {
@@ -11916,6 +11936,11 @@ header {
 header h1, header .h1 {
   font-size: 44px;
   color: #ffc107;
+}
+
+#searchInput {
+  border: none;
+  outline: none;
 }
 
 main {

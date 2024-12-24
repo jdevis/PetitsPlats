@@ -31,20 +31,22 @@
 					ET DÉLICIEUSES
 				</h1>
 				<form
-					class="d-flex w-75 justify-content-center align-items-center position-relative"
+					class="form-control w-75 justify-content-center align-items-center position-relative"
 					role="search"
+					id="search"
 				>
 					<input
-						class="form-control w-100 h-60px"
+						class="w-95 h-60px"
 						type="search"
-						name="search"
-						id="search"
+						name="searchInput"
+						id="searchInput"
+						minlength="3"
 						placeholder="Rechercher une recette, un ingrédient, ..."
 						aria-label="Rechercher une recette, un ingrédient, ..."
 					/>
 					<button
-						type="button"
-						class="btn btn-bg-black position-absolute end-5 bi bi-search"
+						type="submit"
+						class="btn btn-bg-black position-absolute end-5 top-15 bi bi-search"
 					></button>
 				</form>
 			</div>
@@ -166,15 +168,7 @@
 				</div>
 			</section>
 			<!-- Tags section -->
-			<section class="my-1 row">
-				<div class="col-2 bg-warning rounded p-2 mx-3">
-					Lait de coco
-					<button
-						type="button"
-						class="btn bi bi-x-lg p-0 float-end"
-					></button>
-				</div>
-			</section>
+			<section class="my-1 row" id="tagsContainer"></section>
 			<!-- Recipe cards section -->
 			<section
 				class="mt-5 row align-items-start"
@@ -192,6 +186,9 @@
 				type="button"
 				class="btn position-absolute p-0 top-5 end-5 bi bi-x-circle-fill"
 			></button>
+		</template>
+		<template data-tags-template>
+			<div class="col-2 bg-warning rounded p-2 mx-3"></div>
 		</template>
 		<template data-recipe-template>
 			<article class="col-4">
@@ -226,6 +223,7 @@
 			</div>
 		</template>
 		<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="js/display.js" type="module"></script>
 		<script src="js/main.js" type="module"></script>
 	</body>
 </html>

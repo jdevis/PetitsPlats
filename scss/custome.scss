@@ -1,6 +1,7 @@
 $position-values: (
     0: 0,
     5:5px,
+    15:15px,
     25:25px,
     50: 50%,
     100: 100%) !default;
@@ -18,9 +19,19 @@ $utilities:
         250px:250px,
         300px:300px,
         550px:550px,
-        auto: auto)));
-@import "../node_modules/bootstrap/scss/bootstrap";
+        auto: auto)),
+    "width": (property: width,
+        class: w,
+        values: (
+            25: 25%,
+            50: 50%,
+            75: 75%,
+            95: 95%,
+            100: 100%,
+            auto: auto))
+    );
 
+@import "../node_modules/bootstrap/scss/bootstrap";
 
 :root {
     --bs-body-font-family: "Manrope", sans-serif;
@@ -35,6 +46,10 @@ header {
 header h1{
     font-size: 44px;
     color: $yellow;
+}
+#searchInput{
+    border: none;
+    outline: none;
 }
 main{
     background-color: $gray-200;
