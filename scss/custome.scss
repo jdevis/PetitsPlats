@@ -54,6 +54,10 @@ header h1{
 main{
     background-color: $gray-200;
 }
+a.dropdown-item::first-letter,
+[data-ingredient-title]::first-letter{
+    text-transform: uppercase;
+}
 .card-img-top{
     height: 300px;
     object-fit: cover;

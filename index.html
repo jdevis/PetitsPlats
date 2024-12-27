@@ -43,6 +43,7 @@
 						minlength="3"
 						placeholder="Rechercher une recette, un ingrédient, ..."
 						aria-label="Rechercher une recette, un ingrédient, ..."
+						autocomplete="false"
 					/>
 					<button
 						type="submit"
@@ -174,9 +175,7 @@
 				class="mt-5 row align-items-start"
 				id="recipeCards"
 			></section>
-			<p class="col-12 fs-5 d-none" data-message>
-				Aucune recette ne correspond à votre recherche
-			</p>
+			<p class="col-12 fs-5 d-none" data-message></p>
 		</main>
 		<template data-filter-list>
 			<li><a class="dropdown-item" href="#" data-filter-link></a></li>
@@ -223,7 +222,7 @@
 			</div>
 		</template>
 		<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-		<script src="js/display.js" type="module"></script>
+		<!-- <script src="js/display.js" type="module"></script> -->
 		<script src="js/main.js" type="module"></script>
 	</body>
 </html>
