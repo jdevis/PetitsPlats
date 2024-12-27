@@ -151,7 +151,7 @@ function toggleRecipes(value) {
 		recipe.element.classList.toggle("d-none", !isVisible);
 	});
 	countRecipes(value);
-	filterArrays(value);
+	//filterArrays(value);
 }
 
 const tagsWrapper = document.getElementById("tagsContainer");
