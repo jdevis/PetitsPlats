@@ -69,27 +69,7 @@
 					<ul
 						class="dropdown-menu h-250px overflow-y-scroll"
 						data-filter-ingredients
-					>
-						<li>
-							<form
-								class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
-								role="search"
-							>
-								<input
-									class="form-control w-100"
-									type="search"
-									name="searchIng"
-									id="searchIng"
-									placeholder=""
-									aria-label="Rechercher un ingrédient"
-								/>
-								<button
-									type="button"
-									class="btn position-absolute bi bi-search end-5"
-								></button>
-							</form>
-						</li>
-					</ul>
+					></ul>
 				</div>
 				<div class="dropdown col-3">
 					<button
@@ -105,27 +85,7 @@
 					<ul
 						class="dropdown-menu h-250px overflow-y-scroll"
 						data-filter-appliances
-					>
-						<li>
-							<form
-								class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
-								role="search"
-							>
-								<input
-									class="form-control w-100"
-									type="search"
-									name="searchAppliance"
-									id="searchAppliance"
-									placeholder=""
-									aria-label="Rechercher un appareil"
-								/>
-								<button
-									type="button"
-									class="btn position-absolute bi bi-search end-5"
-								></button>
-							</form>
-						</li>
-					</ul>
+					></ul>
 				</div>
 				<div class="dropdown col-3">
 					<button
@@ -141,31 +101,11 @@
 					<ul
 						class="dropdown-menu h-250px overflow-y-scroll"
 						data-filter-ustensils
-					>
-						<li>
-							<form
-								class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
-								role="search"
-							>
-								<input
-									class="form-control w-100"
-									type="search"
-									name="searchUstensils"
-									id="searchUstensils"
-									placeholder=""
-									aria-label="Rechercher un ustensile"
-								/>
-								<button
-									type="button"
-									class="btn position-absolute bi bi-search end-5"
-								></button>
-							</form>
-						</li>
-					</ul>
+					></ul>
 				</div>
 				<!-- number of recipes -->
 				<div class="col-3 text-end">
-					<h4 id="recipesNumber" class="mb-0 mt-2">50 recettes</h4>
+					<h4 id="recipesNumber" class="mb-0 mt-2"></h4>
 				</div>
 			</section>
 			<!-- Tags section -->
@@ -177,9 +117,6 @@
 			></section>
 			<p class="col-12 fs-5 d-none" data-message></p>
 		</main>
-		<template data-filter-list>
-			<li><a class="dropdown-item" href="#" data-filter-link></a></li>
-		</template>
 		<template data-filter-button>
 			<button
 				type="button"
@@ -189,40 +126,8 @@
 		<template data-tags-template>
 			<div class="col-2 bg-warning rounded p-2 mx-3"></div>
 		</template>
-		<template data-recipe-template>
-			<article class="col-4">
-				<div class="card mb-3 position-relative">
-					<img src="" class="card-img-top" alt="" data-recipe-img />
-					<span
-						data-recipe-time
-						class="w-25 position-absolute top-25 end-25 rounded-pill text-center bg-warning"
-					></span>
-					<div class="card-body h-550px">
-						<h5 class="card-title" data-recipe-title></h5>
-						<p class="text-body-secondary text-uppercase">
-							Recette
-						</p>
-						<p
-							class="h-150px card-text text-wrap text-truncate"
-							data-recipe-desc
-						></p>
-						<p class="text-body-secondary text-uppercase">
-							Ingrédients
-						</p>
-						<div class="row" data-ingredients-container></div>
-					</div>
-				</div>
-			</article>
-		</template>
-		<template data-ingredients-template>
-			<div class="col-6">
-				<p class="mb-0 card-text small" data-ingredient-title></p>
-				<small class="text-body-secondary" data-ingredient-qty></small>
-				<small class="text-body-secondary" data-ingredient-unit></small>
-			</div>
-		</template>
 		<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-		<!-- <script src="js/display.js" type="module"></script> -->
+		<script src="js/models.js" type="module"></script>
 		<script src="js/main.js" type="module"></script>
 	</body>
 </html>

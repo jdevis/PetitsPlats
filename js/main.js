@@ -1,132 +1,135 @@
 import { recipes } from "../data/recipes.js";
+import { cardRecipe, filterList } from "./models.js";
 
 const cardsWrapper = document.getElementById("recipeCards");
-const cardTemplate = document.querySelector("[data-recipe-template]");
-const ingredientsTemplate = document.querySelector(
-	"[data-ingredients-template]"
-);
-let recipesArray = recipes.sort((a, b) => a.name.localeCompare(b.name));
-let ingredientsArray = [];
-let ingredientsFilterArray = [];
-let applianceArray = [];
-let ustensilsArray = [];
+const recipesArray = recipes.sort((a, b) => a.name.localeCompare(b.name));
 
 /** display recipes */
-function displayRecipes() {
-	recipesArray = recipesArray.map((recipe) => {
-		const card = cardTemplate.content.cloneNode(true).children[0];
-		const img = card.querySelector("[data-recipe-img]");
-		const recipeTitle = card.querySelector("[data-recipe-title]");
-		const recipeDesc = card.querySelector("[data-recipe-desc]");
-		const recipeTime = card.querySelector("[data-recipe-time]");
-		const src = "/assets/photos/" + recipe.image;
-		card.setAttribute("id", "recipeId-" + recipe.id);
-		img.setAttribute("src", src);
-		recipeTitle.textContent = recipe.name;
-		recipeDesc.textContent = recipe.description;
-		recipeTime.textContent = recipe.time + "min";
-		const ingredientsContainer = card.querySelector(
-			"[data-ingredients-container]"
-		);
-		ingredientsArray = recipe.ingredients.map((ing) => {
-			const ingredientCard = ingredientsTemplate.content.cloneNode(true)
-				.children[0];
-			const ingredientTitle = ingredientCard.querySelector(
-				"[data-ingredient-title]"
-			);
-			const ingredientQuantity = ingredientCard.querySelector(
-				"[data-ingredient-qty]"
-			);
-			const ingredientUnit = ingredientCard.querySelector(
-				"[data-ingredient-unit]"
-			);
-			ingredientTitle.textContent = ing.ingredient;
-			ingredientQuantity.textContent = ing.quantity;
-			ingredientUnit.textContent = ing.unit;
-			ingredientsContainer.append(ingredientCard);
-			//store ingredients for filter
-			if (
-				!ingredientsFilterArray.includes(ing.ingredient.toLowerCase())
-			) {
-				ingredientsFilterArray.push(ing.ingredient.toLowerCase());
-			}
-			return { ingredientTitle: ing.ingredient };
-		});
-		//store ustensils for filter
-		recipe.ustensils.forEach((element) => {
-			if (!ustensilsArray.includes(element.toLowerCase())) {
-				ustensilsArray.push(element.toLowerCase());
-			}
-		});
-		//store appliances for filter
-		if (!applianceArray.includes(recipe.appliance.toLowerCase())) {
-			applianceArray.push(recipe.appliance.toLowerCase());
-		}
-		cardsWrapper.append(card);
-		return {
-			title: recipe.name,
-			description: recipe.description,
-			appliance: recipe.appliance,
-			element: card,
-		};
+// data MUST be in the same format as recipes.js, string is the term searched for displaying tags and message
+function displayRecipes(data, string) {
+	cardsWrapper.innerHTML = "";
+	if (string === "" || !string) {
+		data = recipesArray;
+	}
+	data.forEach((recipe) => {
+		const card = new cardRecipe(recipe);
+		cardsWrapper.appendChild(card.cardTemplate());
+		card.ingredientsTemplate();
 	});
+	countRecipes(data.length, string);
+	displayFilters(data);
 }
+
 /** display filters */
-function displayFilters() {
+// data MUST be in the same format as recipes.js
+function displayFilters(data) {
 	const ingredientsList = document.querySelector("[data-filter-ingredients]");
-	const appliancesList = document.querySelector("[data-filter-appliances]");
 	const ustensilsList = document.querySelector("[data-filter-ustensils]");
-	const listTemplate = document.querySelector("[data-filter-list]");
-	// sort alphabetically
-	ingredientsFilterArray.sort((a, b) => a.localeCompare(b));
-	applianceArray.sort((a, b) => a.localeCompare(b));
-	ustensilsArray.sort((a, b) => a.localeCompare(b));
-	// ingredients filter
-	ingredientsFilterArray.forEach((element) => {
-		const list = listTemplate.content.cloneNode(true).children[0];
-		const link = list.querySelector("[data-filter-link]");
-		link.textContent = element;
-		ingredientsList.children[0].append(list);
+	const appliancesList = document.querySelector("[data-filter-appliances]");
+	ingredientsList.innerHTML = `<li>
+		<form
+			class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
+			role="search"
+		>
+			<input
+				class="form-control w-100"
+				type="search"
+				name="searchIng"
+				id="searchIng"
+				placeholder=""
+				aria-label="Rechercher un ingrédient"
+			/>
+			<button
+				type="button"
+				class="btn position-absolute bi bi-search end-5"
+			></button>
+		</form>
+	</li>`;
+	ustensilsList.innerHTML = `<li>
+		<form
+			class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
+			role="search"
+		>
+			<input
+				class="form-control w-100"
+				type="search"
+				name="searchUstensils"
+				id="searchUstensils"
+				placeholder=""
+				aria-label="Rechercher un ustensile"
+			/>
+			<button
+				type="button"
+				class="btn position-absolute bi bi-search end-5"
+			></button>
+		</form>
+	</li>`;
+	appliancesList.innerHTML = `<li>
+		<form
+			class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
+			role="search"
+		>
+			<input
+				class="form-control w-100"
+				type="search"
+				name="searchAppliance"
+				id="searchAppliance"
+				placeholder=""
+				aria-label="Rechercher un appareil"
+			/>
+			<button
+				type="button"
+				class="btn position-absolute bi bi-search end-5"
+			></button>
+		</form>
+	</li>`;
+	let ingredientsArray = [];
+	let ustensilsArray = [];
+	let appliancesArray = [];
+	data.forEach((recipe) => {
+		recipe.ingredients.forEach((ingredients) => {
+			ingredientsArray.push(ingredients.ingredient.toLowerCase());
+		});
+		recipe.ustensils.forEach((ustensil) => {
+			ustensilsArray.push(ustensil.toLowerCase());
+		});
+		appliancesArray.push(recipe.appliance.toLowerCase());
 	});
-	// appliances filter
-	applianceArray.forEach((element) => {
-		const list = listTemplate.content.cloneNode(true).children[0];
-		const link = list.querySelector("[data-filter-link]");
-		link.textContent = element;
-		appliancesList.children[0].append(list);
+	let ingredientsArrayFiltered = [...new Set(ingredientsArray)].sort((a, b) =>
+		a.localeCompare(b)
+	);
+	let ustensilsArrayFiltered = [...new Set(ustensilsArray)].sort((a, b) =>
+		a.localeCompare(b)
+	);
+	let appliancesArrayFiltered = [...new Set(appliancesArray)].sort((a, b) =>
+		a.localeCompare(b)
+	);
+	ingredientsArrayFiltered.forEach((ingredient) => {
+		const ingredientLi = new filterList(ingredient);
+		ingredientsList.children[0].append(ingredientLi.filterTemplate());
 	});
-	// ustensils filter
-	ustensilsArray.forEach((element) => {
-		const list = listTemplate.content.cloneNode(true).children[0];
-		const link = list.querySelector("[data-filter-link]");
-		link.textContent = element;
-		ustensilsList.children[0].append(list);
+	ustensilsArrayFiltered.forEach((ustensil) => {
+		const ustensilLi = new filterList(ustensil);
+		ustensilsList.children[0].append(ustensilLi.filterTemplate());
+	});
+	appliancesArrayFiltered.forEach((appliance) => {
+		const applianceLi = new filterList(appliance);
+		appliancesList.children[0].append(applianceLi.filterTemplate());
 	});
 }
 
 const message = document.querySelector("[data-message]");
-function countRecipes(value) {
-	let count = cardsWrapper.getElementsByClassName("d-none").length;
-	let newCount = 50 - count;
-	const nbreRecipeString =
-		newCount === 0 || newCount === 1 ? " recette" : " recettes";
-	if (newCount === 0) {
-		message.innerHTML = `Aucune recette ne contient <span class="fw-bold">${value}</span> vous pouvez chercher «
+function countRecipes(nb, string) {
+	const nbreRecipeString = nb === 0 || nb === 1 ? " recette" : " recettes";
+	if (nb === 0) {
+		message.innerHTML = `Aucune recette ne contient <span class="fw-bold">${string}</span> vous pouvez chercher «
 tarte aux pommes », « poisson », etc.... `;
 		message.classList.remove("d-none");
 	} else {
 		message.classList.add("d-none");
 	}
 	document.getElementById("recipesNumber").textContent =
-		newCount + nbreRecipeString;
-}
-
-function filterArrays(key) {
-	const arrayFiltered = recipesArray.filter(
-		(element) =>
-			element.name.includes(key) || element.description.includes(key)
-	);
-	return arrayFiltered;
+		nb + nbreRecipeString;
 }
 
 /** searchBar */
@@ -134,25 +137,21 @@ const searchForm = document.getElementById("search");
 const searchInput = document.getElementById("searchInput");
 searchForm.addEventListener("submit", (e) => {
 	e.preventDefault();
-});
-searchInput.addEventListener("input", (e) => {
-	const value = e.target.value;
+	const value = searchInput.value;
 	if (value.length > 2) {
-		toggleRecipes(value);
-		displayTags();
+		const newRecipes = recipesArray.filter(
+			(recipe) =>
+				recipe.name.toLowerCase().includes(value.toLowerCase()) ||
+				recipe.description.toLowerCase().includes(value.toLowerCase())
+		);
+		displayRecipes(newRecipes, value);
 	}
 });
-function toggleRecipes(value) {
-	console.log(value);
-	recipesArray.forEach((recipe) => {
-		const isVisible =
-			recipe.title.toLowerCase().includes(value) ||
-			recipe.description.toLowerCase().includes(value);
-		recipe.element.classList.toggle("d-none", !isVisible);
-	});
-	countRecipes(value);
-	//filterArrays(value);
-}
+searchInput.addEventListener("input", (e) => {
+	if (e.target.value === "") {
+		displayRecipes(recipesArray, "");
+	}
+});
 
 const tagsWrapper = document.getElementById("tagsContainer");
 const tagTemplate = document.querySelector("[data-tags-template]");
@@ -163,7 +162,6 @@ function displayTags() {
 	class="btn bi bi-x-lg p-0 float-end"
 	></button>`;
 	tagsWrapper.append(tag);
-	removeTags();
 }
 function removeTags() {
 	const button = tagsWrapper.querySelector("button");
@@ -173,5 +171,4 @@ function removeTags() {
 	});
 }
 
-displayRecipes();
-displayFilters();
+displayRecipes(recipesArray, "");
