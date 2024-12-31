@@ -52,7 +52,35 @@ export class cardRecipe {
 		});
 	}
 }
-
+export class formList {
+	constructor(id, label) {
+		this._id = id;
+		this._label = label;
+	}
+	formTemplate() {
+		const formContainer = document.createElement("li");
+		const template = `
+		<form
+			class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
+			role="search"
+		>
+			<input
+				class="form-control w-100"
+				type="search"
+				name="${this._id}"
+				id="${this._id}"
+				placeholder=""
+				aria-label="${this._label}"
+			/>
+			<button
+				type="button"
+				class="btn position-absolute bi bi-search end-5"
+			></button>
+		</form>`;
+		formContainer.innerHTML = template;
+		return formContainer;
+	}
+}
 export class filterList {
 	constructor(data) {
 		this._name = data;
@@ -63,5 +91,19 @@ export class filterList {
 		const template = `<a class="dropdown-item" href="#" data-filter-link>${this._name.toLowerCase()}</a>`;
 		list.innerHTML = template;
 		return list;
+	}
+}
+
+export class tagsList {
+	constructor(string) {
+		this._value = string;
+	}
+
+	createTag() {
+		const tag = document.createElement("div");
+		tag.setAttribute("class", "col-2 bg-warning rounded p-2 mx-3");
+		const template = `${this._value}<button type="button" class="btn bi bi-x-lg p-0 float-end"></button>`;
+		tag.innerHTML = template;
+		return tag;
 	}
 }

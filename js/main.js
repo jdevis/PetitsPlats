@@ -1,14 +1,15 @@
 import { recipes } from "../data/recipes.js";
-import { cardRecipe, filterList } from "./models.js";
+import { cardRecipe, filterList, formList, tagsList } from "./models.js";
 
 const cardsWrapper = document.getElementById("recipeCards");
 const recipesArray = recipes.sort((a, b) => a.name.localeCompare(b.name));
 
 /** display recipes */
-// data MUST be in the same format as recipes.js, string is the term searched for displaying tags and message
-function displayRecipes(data, string) {
+// data MUST be in the same format as recipes.js
+function displayRecipes(data) {
 	cardsWrapper.innerHTML = "";
-	if (string === "" || !string) {
+	let searchValue = searchInput.value;
+	if (searchValue === "" || !searchValue) {
 		data = recipesArray;
 	}
 	data.forEach((recipe) => {
@@ -16,8 +17,33 @@ function displayRecipes(data, string) {
 		cardsWrapper.appendChild(card.cardTemplate());
 		card.ingredientsTemplate();
 	});
-	countRecipes(data.length, string);
+	countRecipes();
 	displayFilters(data);
+}
+function removeRecipes(value) {
+	cardsWrapper.innerHTML = "";
+	if (value === searchInput.value) {
+		searchInput.value = "";
+		displayRecipes(recipesArray);
+	} else {
+		const data = recipesArray.filter(
+			(recipe) =>
+				!recipe.name.toLowerCase().includes(value.toLowerCase()) ||
+				!recipe.description
+					.toLowerCase()
+					.includes(value.toLowerCase()) ||
+				!recipe.appliance.toLowerCase().includes(value.toLowerCase()) ||
+				recipe.ingredients.forEach((ingredient) => {
+					!ingredient.ingredient
+						.toLowerCase()
+						.includes(value.toLowerCase());
+				}) ||
+				recipe.ustensils.forEach((ustensil) => {
+					!ustensil.toLowerCase().includes(value.toLowerCase());
+				})
+		);
+		displayRecipes(data);
+	}
 }
 
 /** display filters */
@@ -26,63 +52,24 @@ function displayFilters(data) {
 	const ingredientsList = document.querySelector("[data-filter-ingredients]");
 	const ustensilsList = document.querySelector("[data-filter-ustensils]");
 	const appliancesList = document.querySelector("[data-filter-appliances]");
-	ingredientsList.innerHTML = `<li>
-		<form
-			class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
-			role="search"
-		>
-			<input
-				class="form-control w-100"
-				type="search"
-				name="searchIng"
-				id="searchIng"
-				placeholder=""
-				aria-label="Rechercher un ingrédient"
-			/>
-			<button
-				type="button"
-				class="btn position-absolute bi bi-search end-5"
-			></button>
-		</form>
-	</li>`;
-	ustensilsList.innerHTML = `<li>
-		<form
-			class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
-			role="search"
-		>
-			<input
-				class="form-control w-100"
-				type="search"
-				name="searchUstensils"
-				id="searchUstensils"
-				placeholder=""
-				aria-label="Rechercher un ustensile"
-			/>
-			<button
-				type="button"
-				class="btn position-absolute bi bi-search end-5"
-			></button>
-		</form>
-	</li>`;
-	appliancesList.innerHTML = `<li>
-		<form
-			class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
-			role="search"
-		>
-			<input
-				class="form-control w-100"
-				type="search"
-				name="searchAppliance"
-				id="searchAppliance"
-				placeholder=""
-				aria-label="Rechercher un appareil"
-			/>
-			<button
-				type="button"
-				class="btn position-absolute bi bi-search end-5"
-			></button>
-		</form>
-	</li>`;
+	const ingredientsForm = new formList(
+		"searchIng",
+		"Rechercher un ingrédient"
+	);
+	ingredientsList.innerHTML = "";
+	ingredientsList.appendChild(ingredientsForm.formTemplate());
+	const ustensilsForm = new formList(
+		"searchUstensils",
+		"Rechercher un ustensile"
+	);
+	ustensilsList.innerHTML = "";
+	ustensilsList.appendChild(ustensilsForm.formTemplate());
+	const appliancesForm = new formList(
+		"searchAppliance",
+		"Rechercher un appareil"
+	);
+	appliancesList.innerHTML = "";
+	appliancesList.appendChild(appliancesForm.formTemplate());
 	let ingredientsArray = [];
 	let ustensilsArray = [];
 	let appliancesArray = [];
@@ -119,10 +106,12 @@ function displayFilters(data) {
 }
 
 const message = document.querySelector("[data-message]");
-function countRecipes(nb, string) {
+function countRecipes() {
+	let nb = cardsWrapper.querySelectorAll("article").length;
+	let searchValue = searchInput.value;
 	const nbreRecipeString = nb === 0 || nb === 1 ? " recette" : " recettes";
 	if (nb === 0) {
-		message.innerHTML = `Aucune recette ne contient <span class="fw-bold">${string}</span> vous pouvez chercher «
+		message.innerHTML = `Aucune recette ne contient <span class="fw-bold">${searchValue}</span> vous pouvez chercher «
 tarte aux pommes », « poisson », etc.... `;
 		message.classList.remove("d-none");
 	} else {
@@ -142,33 +131,44 @@ searchForm.addEventListener("submit", (e) => {
 		const newRecipes = recipesArray.filter(
 			(recipe) =>
 				recipe.name.toLowerCase().includes(value.toLowerCase()) ||
-				recipe.description.toLowerCase().includes(value.toLowerCase())
+				recipe.description
+					.toLowerCase()
+					.includes(value.toLowerCase()) ||
+				recipe.appliance.toLowerCase().includes(value.toLowerCase()) ||
+				recipe.ingredients.forEach((ingredient) => {
+					ingredient.ingredient
+						.toLowerCase()
+						.includes(value.toLowerCase());
+				}) ||
+				recipe.ustensils.forEach((ustensil) => {
+					ustensil.toLowerCase().includes(value.toLowerCase());
+				})
 		);
-		displayRecipes(newRecipes, value);
+		displayRecipes(newRecipes);
+		displayTags(value);
 	}
 });
 searchInput.addEventListener("input", (e) => {
 	if (e.target.value === "") {
-		displayRecipes(recipesArray, "");
+		displayRecipes(recipesArray);
 	}
 });
 
 const tagsWrapper = document.getElementById("tagsContainer");
-const tagTemplate = document.querySelector("[data-tags-template]");
-function displayTags() {
-	const tag = tagTemplate.content.cloneNode(true).children[0];
-	tag.innerHTML = `${searchInput.value}<button
-	type="button"
-	class="btn bi bi-x-lg p-0 float-end"
-	></button>`;
-	tagsWrapper.append(tag);
+function displayTags(value) {
+	const tag = new tagsList(value);
+	tagsWrapper.appendChild(tag.createTag());
+	removeTags();
 }
 function removeTags() {
-	const button = tagsWrapper.querySelector("button");
-	button.addEventListener("click", (e) => {
-		e.target.parentNode.remove();
-		toggleRecipes("");
+	const buttons = tagsWrapper.querySelectorAll("button");
+	buttons.forEach((button) => {
+		button.addEventListener("click", (e) => {
+			const value = e.target.parentNode.textContent;
+			e.target.parentNode.remove();
+			removeRecipes(value);
+		});
 	});
 }
 
-displayRecipes(recipesArray, "");
+displayRecipes(recipesArray);
