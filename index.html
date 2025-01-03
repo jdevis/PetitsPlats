@@ -68,8 +68,28 @@
 					</button>
 					<ul
 						class="dropdown-menu h-250px overflow-y-scroll"
-						data-filter-ingredients
-					></ul>
+						id="filter-ingredients"
+					>
+						<li>
+							<form
+								class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
+								role="search"
+							>
+								<input
+									class="form-control w-100"
+									type="search"
+									name="ingrédient"
+									id="ingrédient"
+									placeholder=""
+									aria-label="rechercher un ingrédient"
+								/>
+								<button
+									type="button"
+									class="btn position-absolute bi bi-search end-5"
+								></button>
+							</form>
+						</li>
+					</ul>
 				</div>
 				<div class="dropdown col-3">
 					<button
@@ -84,8 +104,28 @@
 					</button>
 					<ul
 						class="dropdown-menu h-250px overflow-y-scroll"
-						data-filter-appliances
-					></ul>
+						id="filter-appliances"
+					>
+						<li>
+							<form
+								class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
+								role="search"
+							>
+								<input
+									class="form-control w-100"
+									type="search"
+									name="appareil"
+									id="appareil"
+									placeholder=""
+									aria-label="rechercher un appareil"
+								/>
+								<button
+									type="button"
+									class="btn position-absolute bi bi-search end-5"
+								></button>
+							</form>
+						</li>
+					</ul>
 				</div>
 				<div class="dropdown col-3">
 					<button
@@ -100,8 +140,28 @@
 					</button>
 					<ul
 						class="dropdown-menu h-250px overflow-y-scroll"
-						data-filter-ustensils
-					></ul>
+						id="filter-ustensils"
+					>
+						<li>
+							<form
+								class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
+								role="search"
+							>
+								<input
+									class="form-control w-100"
+									type="search"
+									name="ustensile"
+									id="ustensile"
+									placeholder=""
+									aria-label="rechercher un ustensile"
+								/>
+								<button
+									type="button"
+									class="btn position-absolute bi bi-search end-5"
+								></button>
+							</form>
+						</li>
+					</ul>
 				</div>
 				<!-- number of recipes -->
 				<div class="col-3 text-end">
@@ -115,7 +175,7 @@
 				class="mt-5 row align-items-start"
 				id="recipeCards"
 			></section>
-			<p class="col-12 fs-5 d-none" data-message></p>
+			<p class="col-12 fs-5 d-none" id="message"></p>
 		</main>
 		<template data-filter-button>
 			<button

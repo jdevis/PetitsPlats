@@ -1,79 +1,63 @@
-import { recipes } from "../data/recipes.js";
-import { cardRecipe, filterList, formList, tagsList } from "./models.js";
+import { recipes } from "../data/recipes.js"; // external data
+import { cardRecipe, filterList, tagsList } from "./models.js"; // HTML templates
 
+/** Globals variables */
+// Arrays
+const defaultRecipes = recipes.sort((a, b) => a.name.localeCompare(b.name));
+let recipesArray = defaultRecipes;
+let tagsSelected = new Array();
+let ingredientsArray = new Array();
+let ustensilsArray = new Array();
+let appliancesArray = new Array();
+// Containers
 const cardsWrapper = document.getElementById("recipeCards");
-const recipesArray = recipes.sort((a, b) => a.name.localeCompare(b.name));
+const tagsWrapper = document.getElementById("tagsContainer");
+const message = document.getElementById("message");
+const ingredientsList = document.getElementById("filter-ingredients");
+const ustensilsList = document.getElementById("filter-appliances");
+const appliancesList = document.getElementById("filter-ustensils");
+const searchInput = document.getElementById("searchInput");
 
-/** display recipes */
-// data MUST be in the same format as recipes.js
-function displayRecipes(data) {
-	cardsWrapper.innerHTML = "";
-	let searchValue = searchInput.value;
-	if (searchValue === "" || !searchValue) {
-		data = recipesArray;
-	}
-	data.forEach((recipe) => {
-		const card = new cardRecipe(recipe);
-		cardsWrapper.appendChild(card.cardTemplate());
-		card.ingredientsTemplate();
-	});
-	countRecipes();
-	displayFilters(data);
-}
-function removeRecipes(value) {
-	cardsWrapper.innerHTML = "";
-	if (value === searchInput.value) {
-		searchInput.value = "";
-		displayRecipes(recipesArray);
-	} else {
-		const data = recipesArray.filter(
-			(recipe) =>
-				!recipe.name.toLowerCase().includes(value.toLowerCase()) ||
-				!recipe.description
-					.toLowerCase()
-					.includes(value.toLowerCase()) ||
-				!recipe.appliance.toLowerCase().includes(value.toLowerCase()) ||
-				recipe.ingredients.forEach((ingredient) => {
-					!ingredient.ingredient
+/** data manipulation and display */
+function filterArrays() {
+	console.log("tableau de recettes before: ", recipesArray);
+	let newRecipes = defaultRecipes;
+	console.log(
+		"tableau de tags: ",
+		tagsSelected,
+		"longueur: ",
+		tagsSelected.length
+	);
+	if (tagsSelected.length > 0) {
+		tagsSelected.forEach((tag) => {
+			console.log("tag: ", tag);
+			newRecipes = newRecipes.filter(
+				(recipe) =>
+					recipe.name.toLowerCase().includes(tag.toLowerCase()) ||
+					recipe.description
 						.toLowerCase()
-						.includes(value.toLowerCase());
-				}) ||
-				recipe.ustensils.forEach((ustensil) => {
-					!ustensil.toLowerCase().includes(value.toLowerCase());
-				})
-		);
-		displayRecipes(data);
+						.includes(tag.toLowerCase()) ||
+					recipe.appliance
+						.toLowerCase()
+						.includes(tag.toLowerCase()) ||
+					recipe.ingredients.forEach((ingredient) => {
+						ingredient.ingredient
+							.toLowerCase()
+							.includes(tag.toLowerCase());
+					}) ||
+					recipe.ustensils.forEach((ustensil) => {
+						ustensil.toLowerCase().includes(tag.toLowerCase());
+					})
+			);
+		});
 	}
+	console.log("tableau de recettes after: ", newRecipes);
+	return newRecipes;
 }
 
-/** display filters */
-// data MUST be in the same format as recipes.js
-function displayFilters(data) {
-	const ingredientsList = document.querySelector("[data-filter-ingredients]");
-	const ustensilsList = document.querySelector("[data-filter-ustensils]");
-	const appliancesList = document.querySelector("[data-filter-appliances]");
-	const ingredientsForm = new formList(
-		"searchIng",
-		"Rechercher un ingrédient"
-	);
-	ingredientsList.innerHTML = "";
-	ingredientsList.appendChild(ingredientsForm.formTemplate());
-	const ustensilsForm = new formList(
-		"searchUstensils",
-		"Rechercher un ustensile"
-	);
-	ustensilsList.innerHTML = "";
-	ustensilsList.appendChild(ustensilsForm.formTemplate());
-	const appliancesForm = new formList(
-		"searchAppliance",
-		"Rechercher un appareil"
-	);
-	appliancesList.innerHTML = "";
-	appliancesList.appendChild(appliancesForm.formTemplate());
-	let ingredientsArray = [];
-	let ustensilsArray = [];
-	let appliancesArray = [];
-	data.forEach((recipe) => {
+function updateFilters() {
+	console.log("tableau ingrédients before: ", ingredientsArray);
+	recipesArray.forEach((recipe) => {
 		recipe.ingredients.forEach((ingredients) => {
 			ingredientsArray.push(ingredients.ingredient.toLowerCase());
 		});
@@ -82,30 +66,56 @@ function displayFilters(data) {
 		});
 		appliancesArray.push(recipe.appliance.toLowerCase());
 	});
-	let ingredientsArrayFiltered = [...new Set(ingredientsArray)].sort((a, b) =>
+	ingredientsArray = [...new Set(ingredientsArray)].sort((a, b) =>
 		a.localeCompare(b)
 	);
-	let ustensilsArrayFiltered = [...new Set(ustensilsArray)].sort((a, b) =>
+	ustensilsArray = [...new Set(ustensilsArray)].sort((a, b) =>
 		a.localeCompare(b)
 	);
-	let appliancesArrayFiltered = [...new Set(appliancesArray)].sort((a, b) =>
+	appliancesArray = [...new Set(appliancesArray)].sort((a, b) =>
 		a.localeCompare(b)
 	);
-	ingredientsArrayFiltered.forEach((ingredient) => {
-		const ingredientLi = new filterList(ingredient);
-		ingredientsList.children[0].append(ingredientLi.filterTemplate());
-	});
-	ustensilsArrayFiltered.forEach((ustensil) => {
-		const ustensilLi = new filterList(ustensil);
-		ustensilsList.children[0].append(ustensilLi.filterTemplate());
-	});
-	appliancesArrayFiltered.forEach((appliance) => {
-		const applianceLi = new filterList(appliance);
-		appliancesList.children[0].append(applianceLi.filterTemplate());
-	});
+	console.log("tableau ingrédients after: ", ingredientsArray);
 }
 
-const message = document.querySelector("[data-message]");
+function displayData(data, idWrapper, template) {
+	if (template == "recipe") {
+		idWrapper.innerHTML = "";
+		data.forEach((recipe) => {
+			const card = new cardRecipe(recipe);
+			idWrapper.appendChild(card.cardTemplate());
+			card.ingredientsTemplate();
+		});
+	}
+	if (template == "tag") {
+		const tag = new tagsList(data);
+		idWrapper.appendChild(tag.createTag());
+	}
+	if (template == "filterList") {
+		data.forEach((filter) => {
+			const filterLi = new filterList(filter);
+			idWrapper.children[0].append(filterLi.filterTemplate());
+		});
+	}
+}
+
+function updateTags(value) {
+	tagsSelected.push(value);
+}
+
+function removeElementFromArray(value, array) {
+	if (array.includes(value)) {
+		let newArray = [];
+		array.forEach((elm) => {
+			if (elm !== value) {
+				newArray.push(elm);
+			}
+		});
+		return newArray;
+	}
+	return array;
+}
+
 function countRecipes() {
 	let nb = cardsWrapper.querySelectorAll("article").length;
 	let searchValue = searchInput.value;
@@ -121,54 +131,71 @@ tarte aux pommes », « poisson », etc.... `;
 		nb + nbreRecipeString;
 }
 
-/** searchBar */
-const searchForm = document.getElementById("search");
-const searchInput = document.getElementById("searchInput");
-searchForm.addEventListener("submit", (e) => {
-	e.preventDefault();
-	const value = searchInput.value;
-	if (value.length > 2) {
-		const newRecipes = recipesArray.filter(
-			(recipe) =>
-				recipe.name.toLowerCase().includes(value.toLowerCase()) ||
-				recipe.description
-					.toLowerCase()
-					.includes(value.toLowerCase()) ||
-				recipe.appliance.toLowerCase().includes(value.toLowerCase()) ||
-				recipe.ingredients.forEach((ingredient) => {
-					ingredient.ingredient
-						.toLowerCase()
-						.includes(value.toLowerCase());
-				}) ||
-				recipe.ustensils.forEach((ustensil) => {
-					ustensil.toLowerCase().includes(value.toLowerCase());
-				})
-		);
-		displayRecipes(newRecipes);
-		displayTags(value);
-	}
-});
-searchInput.addEventListener("input", (e) => {
-	if (e.target.value === "") {
-		displayRecipes(recipesArray);
-	}
-});
-
-const tagsWrapper = document.getElementById("tagsContainer");
-function displayTags(value) {
-	const tag = new tagsList(value);
-	tagsWrapper.appendChild(tag.createTag());
-	removeTags();
+/** Listeners */
+function listenToForms() {
+	const allForms = document.querySelectorAll("form");
+	allForms.forEach((form) => {
+		form.addEventListener("submit", (e) => {
+			e.preventDefault();
+			console.log("submit du form: ", form);
+			const inputValue = e.target.querySelector("input[type='search']")
+				.value;
+			const inputId = e.target.querySelector("input[type='search']").id;
+			console.log(
+				"valeur de l'input: ",
+				inputValue,
+				" longueur: ",
+				inputValue.length,
+				"id: ",
+				inputId
+			);
+			if (inputValue.length > 2) {
+				updateTags(inputValue);
+				recipesArray = filterArrays();
+				updateFilters();
+				displayData(inputValue, tagsWrapper, "tag");
+				displayData(recipesArray, cardsWrapper, "recipe");
+				displayData(ingredientsArray, ingredientsList, "filterList");
+				displayData(ustensilsArray, ustensilsList, "filterList");
+				displayData(appliancesArray, appliancesList, "filterList");
+				countRecipes();
+				removeTags();
+			}
+		});
+	});
 }
+
 function removeTags() {
 	const buttons = tagsWrapper.querySelectorAll("button");
 	buttons.forEach((button) => {
 		button.addEventListener("click", (e) => {
 			const value = e.target.parentNode.textContent;
 			e.target.parentNode.remove();
-			removeRecipes(value);
+			tagsSelected = removeElementFromArray(value, tagsSelected);
+			recipesArray = filterArrays();
+			updateFilters();
+			displayData(recipesArray, cardsWrapper, "recipe");
+			displayData(ingredientsArray, ingredientsList, "filterList");
+			displayData(ustensilsArray, ustensilsList, "filterList");
+			displayData(appliancesArray, appliancesList, "filterList");
+			countRecipes();
 		});
 	});
 }
-
-displayRecipes(recipesArray);
+/** Init */
+function init() {
+	// mettre à jour les recettes
+	recipesArray = filterArrays();
+	//mettre à jour les filtres
+	updateFilters();
+	// afficher les recettes
+	displayData(recipesArray, cardsWrapper, "recipe");
+	//afficher les liste de filtres
+	displayData(ingredientsArray, ingredientsList, "filterList");
+	displayData(ustensilsArray, ustensilsList, "filterList");
+	displayData(appliancesArray, appliancesList, "filterList");
+	//mettre à jour le nbre de recettes et les afficher
+	countRecipes();
+}
+init();
+listenToForms();
