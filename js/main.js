@@ -16,33 +16,42 @@ const message = document.getElementById("message");
 const ingredientsList = document.getElementById("filter-ingredients");
 const ustensilsList = document.getElementById("filter-appliances");
 const appliancesList = document.getElementById("filter-ustensils");
-const searchInput = document.getElementById("searchInput");
 
 /** data manipulation and display */
+function filterArraysIntoArrays(array, string) {
+	array.forEach((elm) => {
+		if (
+			//elm.ingredient.toLowerCase().includes(string) ||
+			elm.toLowerCase().includes(string)
+		) {
+			//console.log("ingrédient: ", elm.ingredient.toLowerCase());
+			console.log("autre: ", elm);
+			console.log("tag: ", string);
+			return true;
+		}
+	});
+}
 function filterArrays() {
 	let newRecipes = defaultRecipes;
 	if (tagsSelected.length > 0) {
 		tagsSelected.forEach((tag) => {
 			newRecipes = newRecipes.filter(
 				(recipe) =>
-					recipe.name.toLowerCase().includes(tag.toLowerCase()) ||
-					recipe.description
-						.toLowerCase()
-						.includes(tag.toLowerCase()) ||
-					recipe.appliance
-						.toLowerCase()
-						.includes(tag.toLowerCase()) ||
+					recipe.name.toLowerCase().includes(tag) ||
+					recipe.description.toLowerCase().includes(tag) ||
+					recipe.appliance.toLowerCase().includes(tag) ||
+					//filterArraysIntoArrays(recipe.ingredients, tag) ||
+					//filterArraysIntoArrays(recipe.ustensils, tag)
 					recipe.ingredients.forEach((ingredient) => {
-						ingredient.ingredient
-							.toLowerCase()
-							.includes(tag.toLowerCase());
+						ingredient.ingredient.toLowerCase().includes(tag);
 					}) ||
 					recipe.ustensils.forEach((ustensil) => {
-						ustensil.toLowerCase().includes(tag.toLowerCase());
+						ustensil.toLowerCase().includes(tag);
 					})
 			);
 		});
 	}
+	console.log("tableau de recettes filtré: ", newRecipes);
 	return newRecipes;
 }
 
@@ -89,14 +98,26 @@ function displayData(data, idWrapper, template) {
 		idWrapper.innerHTML = "";
 		idWrapper.appendChild(listItem);
 		data.forEach((filter) => {
-			const filterLi = new filterList(filter);
-			idWrapper.appendChild(filterLi.filterTemplate());
+			let filterLi = new filterList(filter);
+			filterLi = filterLi.filterTemplate();
+			let filterItem = filterLi.children[0];
+			tagsSelected.forEach((tag) => {
+				if (tag === filterItem.textContent) {
+					filterItem.classList.add("selected", "position-relative");
+					let filterText = filterItem.textContent;
+					filterItem.innerHTML = `${filterText}
+			<button type="button"
+			class="btn position-absolute p-0 top-5 end-5 bi bi-x-circle-fill">
+			</button>`;
+				}
+			});
+			idWrapper.appendChild(filterLi);
 		});
 	}
 }
 
 function updateTags(value) {
-	tagsSelected.push(value);
+	tagsSelected.push(value.trim().toLowerCase());
 }
 
 function removeElementFromArray(value, array) {
@@ -113,12 +134,14 @@ function removeElementFromArray(value, array) {
 }
 
 function countRecipes() {
-	//attention valeur de l'input prendre tag
 	let nb = cardsWrapper.querySelectorAll("article").length;
-	let searchValue = searchInput.value;
+	let value = new String();
+	tagsSelected.forEach((tag) => {
+		value += " " + tag;
+	});
 	const nbreRecipeString = nb === 0 || nb === 1 ? " recette" : " recettes";
 	if (nb === 0) {
-		message.innerHTML = `Aucune recette ne contient <span class="fw-bold">${searchValue}</span> vous pouvez chercher «
+		message.innerHTML = `Aucune recette ne contient <span class="fw-bold">${value}</span> vous pouvez chercher «
 tarte aux pommes », « poisson », etc.... `;
 		message.classList.remove("d-none");
 	} else {
@@ -134,9 +157,10 @@ function listenToForms() {
 	allForms.forEach((form) => {
 		form.addEventListener("submit", (e) => {
 			e.preventDefault();
-			const inputValue = e.target.querySelector("input[type='search']")
-				.value;
-			const inputId = e.target.querySelector("input[type='search']").id;
+			const inputValue = e.target
+				.querySelector("input[type='search']")
+				.value.trim()
+				.toLowerCase();
 			if (inputValue.length > 2 && !tagsSelected.includes(inputValue)) {
 				updateTags(inputValue);
 				displayData(inputValue, tagsWrapper, "tag");
@@ -148,17 +172,10 @@ function listenToForms() {
 }
 
 function listenToFiltersLists() {
-	const allLinks = document.querySelectorAll("ul.dropdown-menu li > a");
+	const allLinks = document.querySelectorAll("[data-filter-link]");
 	allLinks.forEach((link) => {
 		link.addEventListener("click", (e) => {
 			e.preventDefault();
-			console.log(
-				"click du lien: ",
-				e.target,
-				"avec valeur: ",
-				e.target.textContent
-			);
-			e.target.classList.add("selected");
 			updateTags(e.target.textContent);
 			displayData(e.target.textContent, tagsWrapper, "tag");
 			removeTags();
@@ -192,7 +209,7 @@ function init() {
 	displayData(appliancesArray, appliancesList, "filterList");
 	//mettre à jour le nbre de recettes et les afficher
 	countRecipes();
-	listenToForms();
 	listenToFiltersLists();
 }
 init();
+listenToForms();

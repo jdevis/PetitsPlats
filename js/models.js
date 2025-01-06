@@ -73,7 +73,7 @@ export class tagsList {
 
 	createTag() {
 		const tag = document.createElement("div");
-		tag.setAttribute("class", "col-2 bg-warning rounded p-2 mx-3");
+		tag.setAttribute("class", "bg-warning rounded p-2 me-3");
 		const template = `${this._value}<button type="button" class="btn bi bi-x-lg p-0 float-end"></button>`;
 		tag.innerHTML = template;
 		return tag;

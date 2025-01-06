@@ -82,3 +82,6 @@ a.dropdown-item::first-letter,
 .selected:hover {
     font-weight: bold;
 }
+#tagsContainer > div::first-letter {
+    text-transform: uppercase;
+}
