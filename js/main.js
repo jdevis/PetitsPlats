@@ -137,44 +137,48 @@ tarte aux pommes », « poisson », etc.... `;
 }
 
 /** Listeners */
-function listenToForms() {
+function listenToFormsAndFilters() {
 	const allForms = document.querySelectorAll("form");
+	const allLinks = document.querySelectorAll("[data-filter-link]");
+	let value = new String();
 	allForms.forEach((form) => {
 		form.addEventListener("submit", (e) => {
 			e.preventDefault();
-			const inputValue = e.target
+			value = e.target
 				.querySelector("input[type='search']")
 				.value.trim()
 				.toLowerCase();
-			if (inputValue.length > 2 && !tagsSelected.includes(inputValue)) {
-				updateTags(inputValue);
-				displayData(inputValue, tagsWrapper, "tag");
-				removeTags();
+			if (value.length > 2 && !tagsSelected.includes(value)) {
+				updateTags(value);
+				displayData(value, tagsWrapper, "tag");
 				init();
+				removeTags();
 			}
 		});
 	});
-}
-
-function listenToFiltersLists() {
-	const allLinks = document.querySelectorAll("[data-filter-link]");
 	allLinks.forEach((link) => {
 		link.addEventListener("click", (e) => {
 			e.preventDefault();
-			updateTags(e.target.textContent);
-			displayData(e.target.textContent, tagsWrapper, "tag");
-			removeTags();
+			value = e.target.textContent;
+			updateTags(value);
+			displayData(value, tagsWrapper, "tag");
 			init();
+			removeTags();
 		});
 	});
 }
 
 function removeTags() {
-	const buttons = tagsWrapper.querySelectorAll("button");
+	const buttons = document.querySelectorAll("[data-button-remove]");
+	const aliveTags = tagsWrapper.childNodes;
 	buttons.forEach((button) => {
 		button.addEventListener("click", (e) => {
 			const value = e.target.parentNode.textContent;
-			e.target.parentNode.remove();
+			aliveTags.forEach((e) => {
+				if (e.textContent === value) {
+					e.remove();
+				}
+			});
 			tagsSelected = removeElementFromArray(value, tagsSelected);
 			init();
 		});
@@ -195,9 +199,7 @@ function init() {
 	displayData(appliancesArray, appliancesList, "filterList");
 	//update and display number of recipes
 	countRecipes();
-	// add listeners on filters
-	listenToFiltersLists();
+	// add listeners on forms and filters
+	listenToFormsAndFilters();
 }
 init();
-// add listeners on forms
-listenToForms();

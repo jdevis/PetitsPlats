@@ -7591,6 +7591,10 @@ textarea.form-control-lg {
   width: 75% !important;
 }
 
+.w-90 {
+  width: 90% !important;
+}
+
 .w-95 {
   width: 95% !important;
 }
@@ -11938,7 +11942,7 @@ header h1, header .h1 {
   color: #ffc107;
 }
 
-#searchInput {
+input[type=search] {
   border: none;
   outline: none;
 }

@@ -67,7 +67,7 @@ export class filterList {
 	buttonTemplate() {
 		const template = document.createElement("button");
 		template.setAttribute("type", "button");
-		template.setAttribute("data-button-remove", true);
+		template.setAttribute("data-button-remove", "");
 		template.classList.add(
 			"btn",
 			"position-absolute",
