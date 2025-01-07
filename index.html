@@ -31,20 +31,23 @@
 					ET DÉLICIEUSES
 				</h1>
 				<form
-					class="d-flex w-75 justify-content-center align-items-center position-relative"
+					class="form-control w-75 justify-content-center align-items-center position-relative"
 					role="search"
+					id="search"
 				>
 					<input
-						class="form-control w-100 h-60px"
+						class="w-95 h-60px"
 						type="search"
-						name="search"
-						id="search"
+						name="searchInput"
+						id="searchInput"
+						minlength="3"
 						placeholder="Rechercher une recette, un ingrédient, ..."
 						aria-label="Rechercher une recette, un ingrédient, ..."
+						autocomplete="false"
 					/>
 					<button
-						type="button"
-						class="btn btn-bg-black position-absolute end-5 bi bi-search"
+						type="submit"
+						class="btn btn-bg-black position-absolute end-5 top-15 bi bi-search"
 					></button>
 				</form>
 			</div>
@@ -63,45 +66,29 @@
 						<!-- chevron bas -->
 						<i class="bi bi-chevron-compact-down float-end"></i>
 					</button>
-					<ul class="dropdown-menu">
+					<ul
+						class="dropdown-menu h-250px overflow-y-scroll"
+						id="filter-ingredients"
+					>
 						<li>
 							<form
-								class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
+								class="form-control align-items-center mx-2 d-flex w-90 mb-3 px-2 position-relative"
 								role="search"
 							>
 								<input
-									class="form-control w-100"
+									class="w-90"
 									type="search"
-									name="searchIng"
-									id="searchIng"
+									name="ingrédient"
+									id="ingrédient"
+									minlength="3"
 									placeholder=""
-									aria-label="Rechercher un ingrédient"
+									aria-label="rechercher un ingrédient"
 								/>
 								<button
-									type="button"
-									class="btn position-absolute bi bi-search end-5"
+									type="submit"
+									class="btn position-absolute bi bi-search end-0 px-1"
 								></button>
 							</form>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Ingrédient 1</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Ingrédient 2</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Ingrédient 3</a>
-						</li>
-						<li>
-							<a
-								class="dropdown-item selected position-relative"
-								href="#"
-								>Ingrédient 4
-								<button
-									type="button"
-									class="btn position-absolute p-0 top-5 end-5 bi bi-x-circle-fill"
-								></button>
-							</a>
 						</li>
 					</ul>
 				</div>
@@ -116,45 +103,29 @@
 						<!-- chevron bas -->
 						<i class="bi bi-chevron-compact-down float-end"></i>
 					</button>
-					<ul class="dropdown-menu">
+					<ul
+						class="dropdown-menu h-250px overflow-y-scroll"
+						id="filter-appliances"
+					>
 						<li>
 							<form
-								class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
+								class="form-control align-items-center mx-2 d-flex w-90 mb-3 px-2 position-relative"
 								role="search"
 							>
 								<input
-									class="form-control w-100"
+									class="w-90"
 									type="search"
-									name="searchIng"
-									id="searchIng"
+									name="appareil"
+									id="appareil"
+									minlength="3"
 									placeholder=""
-									aria-label="Rechercher un ingrédient"
+									aria-label="rechercher un appareil"
 								/>
 								<button
-									type="button"
-									class="btn position-absolute bi bi-search end-5"
+									type="submit"
+									class="btn position-absolute bi bi-search end-0 px-1"
 								></button>
 							</form>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Appareils 1</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Appareils 2</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Appareils 3</a>
-						</li>
-						<li>
-							<a
-								class="dropdown-item selected position-relative"
-								href="#"
-								>Appareils 4
-								<button
-									type="button"
-									class="btn position-absolute p-0 top-5 end-5 bi bi-x-circle-fill"
-								></button>
-							</a>
 						</li>
 					</ul>
 				</div>
@@ -165,372 +136,52 @@
 						data-bs-toggle="dropdown"
 						aria-expanded="false"
 					>
-						Outils
+						Ustensiles
 						<!-- chevron bas -->
 						<i class="bi bi-chevron-compact-down float-end"></i>
 					</button>
-					<ul class="dropdown-menu">
+					<ul
+						class="dropdown-menu h-250px overflow-y-scroll"
+						id="filter-ustensils"
+					>
 						<li>
 							<form
-								class="d-flex w-100 mb-3 px-2 justify-content-center align-items-center position-relative"
+								class="form-control align-items-center mx-2 d-flex w-90 mb-3 px-2 position-relative"
 								role="search"
 							>
 								<input
-									class="form-control w-100"
+									class="w-90"
 									type="search"
-									name="searchIng"
-									id="searchIng"
+									name="ustensile"
+									id="ustensile"
+									minlength="3"
 									placeholder=""
-									aria-label="Rechercher un ingrédient"
+									aria-label="rechercher un ustensile"
 								/>
 								<button
-									type="button"
-									class="btn position-absolute bi bi-search end-5"
+									type="submit"
+									class="btn position-absolute bi bi-search end-0 px-1"
 								></button>
 							</form>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Outils 1</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Outils 2</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Outils 3</a>
-						</li>
-						<li>
-							<a
-								class="dropdown-item selected position-relative"
-								href="#"
-								>Outils 4
-								<button
-									type="button"
-									class="btn position-absolute p-0 top-5 end-5 bi bi-x-circle-fill"
-								></button>
-							</a>
 						</li>
 					</ul>
 				</div>
 				<!-- number of recipes -->
 				<div class="col-3 text-end">
-					<h4 id="recipesNumber" class="mb-0 mt-2">50 recettes</h4>
+					<h4 id="recipesNumber" class="mb-0 mt-2"></h4>
 				</div>
 			</section>
 			<!-- Tags section -->
-			<section class="my-1 row">
-				<div class="col-2 bg-warning rounded p-2 mx-3">
-					Lait de coco
-					<button
-						type="button"
-						class="btn bi bi-x-lg p-0 float-end"
-					></button>
-				</div>
-			</section>
+			<section class="my-1 d-flex" id="tagsContainer"></section>
 			<!-- Recipe cards section -->
-			<section class="mt-5 row align-items-start">
-				<article class="col-4">
-					<div class="card mb-3 position-relative">
-						<img
-							src="assets/photos/Recette01.jpg"
-							class="card-img-top"
-							alt=""
-						/>
-						<span
-							class="w-25 position-absolute top-25 end-25 rounded-pill text-center bg-warning"
-							>15min</span
-						>
-						<div class="card-body">
-							<h5 class="card-title">Card title 1</h5>
-							<p class="text-body-secondary text-uppercase">
-								Recette
-							</p>
-							<p class="card-text">
-								This is a wider card with supporting text below
-								as a natural lead-in to additional content. This
-								content is a little bit longer.
-							</p>
-							<div class="row">
-								<p class="text-body-secondary text-uppercase">
-									Ingrédients
-								</p>
-								<div class="col-6">
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-								</div>
-								<div class="col-6">
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</article>
-				<article class="col-4">
-					<div class="card mb-3 position-relative">
-						<img
-							src="assets/photos/Recette02.jpg"
-							class="card-img-top"
-							alt=""
-						/>
-						<span
-							class="w-25 position-absolute top-25 end-25 rounded-pill text-center bg-warning"
-							>15min</span
-						>
-						<div class="card-body">
-							<h5 class="card-title">Card title 2</h5>
-							<p class="text-body-secondary text-uppercase">
-								Recette
-							</p>
-							<p class="card-text">
-								This is a wider card with supporting text below
-								as a natural lead-in to additional content. This
-								content is a little bit longer.
-							</p>
-							<div class="row">
-								<p class="text-body-secondary text-uppercase">
-									Ingrédients
-								</p>
-								<div class="col-6">
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-								</div>
-								<div class="col-6">
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</article>
-				<article class="col-4">
-					<div class="card mb-3 position-relative">
-						<img
-							src="assets/photos/Recette03.jpg"
-							class="card-img-top"
-							alt=""
-						/>
-						<span
-							class="w-25 position-absolute top-25 end-25 rounded-pill text-center bg-warning"
-							>15min</span
-						>
-						<div class="card-body">
-							<h5 class="card-title">Card title 3</h5>
-							<p class="text-body-secondary text-uppercase">
-								Recette
-							</p>
-							<p class="card-text">
-								This is a wider card with supporting text below
-								as a natural lead-in to additional content. This
-								content is a little bit longer.
-							</p>
-							<div class="row">
-								<p class="text-body-secondary text-uppercase">
-									Ingrédients
-								</p>
-								<div class="col-6">
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-								</div>
-								<div class="col-6">
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</article>
-				<article class="col-4">
-					<div class="card mb-3 position-relative">
-						<img
-							src="assets/photos/Recette04.jpg"
-							class="card-img-top"
-							alt=""
-						/>
-						<span
-							class="w-25 position-absolute top-25 end-25 rounded-pill text-center bg-warning"
-							>15min</span
-						>
-						<div class="card-body">
-							<h5 class="card-title">Card title 4</h5>
-							<p class="text-body-secondary text-uppercase">
-								Recette
-							</p>
-							<p class="card-text">
-								This is a wider card with supporting text below
-								as a natural lead-in to additional content. This
-								content is a little bit longer.
-							</p>
-							<div class="row">
-								<p class="text-body-secondary text-uppercase">
-									Ingrédients
-								</p>
-								<div class="col-6">
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-								</div>
-								<div class="col-6">
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-									<p class="card-text clearfix">
-										Lait de coco
-										<small
-											class="float-start text-body-secondary"
-											>400 ml</small
-										>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</article>
-			</section>
+			<section
+				class="mt-5 row align-items-start"
+				id="recipeCards"
+			></section>
+			<p class="col-12 fs-5 d-none" id="message"></p>
 		</main>
 		<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-		<script src="js/main.js"></script>
+		<script src="js/models.js" type="module"></script>
+		<script src="js/main.js" type="module"></script>
 	</body>
 </html>

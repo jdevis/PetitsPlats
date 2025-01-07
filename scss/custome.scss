@@ -1,12 +1,38 @@
 $position-values: (
     0: 0,
     5:5px,
+    15:15px,
     25:25px,
     50: 50%,
     100: 100%) !default;
+$utilities:
+    ("height": (property: height,
+    class: h,
+    values: (
+        25: 25%,
+        50: 50%,
+        75: 75%,
+        100: 100%,
+        60px:60px,
+        100px:100px,
+        150px:150px,
+        250px:250px,
+        300px:300px,
+        550px:550px,
+        auto: auto)),
+    "width": (property: width,
+        class: w,
+        values: (
+            25: 25%,
+            50: 50%,
+            75: 75%,
+            90: 90%,
+            95: 95%,
+            100: 100%,
+            auto: auto))
+    );
 
 @import "../node_modules/bootstrap/scss/bootstrap";
-
 
 :root {
     --bs-body-font-family: "Manrope", sans-serif;
@@ -16,21 +42,26 @@ h1,h2,h3,h4,h5{
 }
 header {
     background-image: url("../assets/Background.png");
-    height: 665px;
+    height: 625px;
 }
 header h1{
     font-size: 44px;
     color: $yellow;
 }
+input[type="search"]{
+    border: none;
+    outline: none;
+}
 main{
     background-color: $gray-200;
 }
-.h-100p {    
-    height: 100%;
-
+a.dropdown-item::first-letter,
+[data-ingredient-title]::first-letter{
+    text-transform: uppercase;
 }
-.h-60px{
-    height: 60px;
+.card-img-top{
+    height: 300px;
+    object-fit: cover;
 }
 .mt-35{
     margin-top: .35em;
@@ -51,4 +82,7 @@ main{
 }
 .selected:hover {
     font-weight: bold;
+}
+#tagsContainer > div::first-letter {
+    text-transform: uppercase;
 }

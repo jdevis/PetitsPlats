@@ -7317,6 +7317,10 @@ textarea.form-control-lg {
   top: 5px !important;
 }
 
+.top-15 {
+  top: 15px !important;
+}
+
 .top-25 {
   top: 25px !important;
 }
@@ -7335,6 +7339,10 @@ textarea.form-control-lg {
 
 .bottom-5 {
   bottom: 5px !important;
+}
+
+.bottom-15 {
+  bottom: 15px !important;
 }
 
 .bottom-25 {
@@ -7357,6 +7365,10 @@ textarea.form-control-lg {
   left: 5px !important;
 }
 
+.start-15 {
+  left: 15px !important;
+}
+
 .start-25 {
   left: 25px !important;
 }
@@ -7375,6 +7387,10 @@ textarea.form-control-lg {
 
 .end-5 {
   right: 5px !important;
+}
+
+.end-15 {
+  right: 15px !important;
 }
 
 .end-25 {
@@ -7575,6 +7591,14 @@ textarea.form-control-lg {
   width: 75% !important;
 }
 
+.w-90 {
+  width: 90% !important;
+}
+
+.w-95 {
+  width: 95% !important;
+}
+
 .w-100 {
   width: 100% !important;
 }
@@ -7609,6 +7633,30 @@ textarea.form-control-lg {
 
 .h-100 {
   height: 100% !important;
+}
+
+.h-60px {
+  height: 60px !important;
+}
+
+.h-100px {
+  height: 100px !important;
+}
+
+.h-150px {
+  height: 150px !important;
+}
+
+.h-250px {
+  height: 250px !important;
+}
+
+.h-300px {
+  height: 300px !important;
+}
+
+.h-550px {
+  height: 550px !important;
 }
 
 .h-auto {
@@ -11886,7 +11934,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5 {
 
 header {
   background-image: url("../assets/Background.png");
-  height: 665px;
+  height: 625px;
 }
 
 header h1, header .h1 {
@@ -11894,16 +11942,23 @@ header h1, header .h1 {
   color: #ffc107;
 }
 
+input[type=search] {
+  border: none;
+  outline: none;
+}
+
 main {
   background-color: #e9ecef;
 }
 
-.h-100p {
-  height: 100%;
+a.dropdown-item::first-letter,
+[data-ingredient-title]::first-letter {
+  text-transform: uppercase;
 }
 
-.h-60px {
-  height: 60px;
+.card-img-top {
+  height: 300px;
+  object-fit: cover;
 }
 
 .mt-35 {
@@ -11930,6 +11985,10 @@ main {
 
 .selected:hover {
   font-weight: bold;
+}
+
+#tagsContainer > div::first-letter {
+  text-transform: uppercase;
 }
 
 /*# sourceMappingURL=custome.css.map */
