@@ -64,6 +64,21 @@ export class filterList {
 		list.innerHTML = template;
 		return list;
 	}
+	buttonTemplate() {
+		const template = document.createElement("button");
+		template.setAttribute("type", "button");
+		template.setAttribute("data-button-remove", true);
+		template.classList.add(
+			"btn",
+			"position-absolute",
+			"p-0",
+			"top-5",
+			"end-5",
+			"bi",
+			"bi-x-circle-fill"
+		);
+		return template;
+	}
 }
 
 export class tagsList {
@@ -74,7 +89,7 @@ export class tagsList {
 	createTag() {
 		const tag = document.createElement("div");
 		tag.setAttribute("class", "bg-warning rounded p-2 me-3");
-		const template = `${this._value}<button type="button" class="btn bi bi-x-lg p-0 float-end"></button>`;
+		const template = `${this._value}<button type="button" class="btn bi bi-x-lg p-0 float-end" data-button-remove></button>`;
 		tag.innerHTML = template;
 		return tag;
 	}
