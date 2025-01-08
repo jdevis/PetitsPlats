@@ -39,17 +39,21 @@ export class cardRecipe {
 	}
 
 	ingredientsTemplate() {
-		this._ingredients.forEach((element) => {
+		for (let i = 0; i < this._ingredients.length; i++) {
 			const ingredientsContainer = document.getElementById(
 				`ingredientsRecipe-${this._id}`
 			);
 			ingredientsContainer.innerHTML += `<div class="col-6">
                   <p class="mb-0 card-text small" data-ingredient-title>${
-						element.ingredient
+						this._ingredients[i].ingredient
 					}</p>
-            <small class="text-body-secondary">${element.quantity ?? ""}</small>
-            <small class="text-body-secondary">${element.unit ?? ""}</small>`;
-		});
+            <small class="text-body-secondary">${
+				this._ingredients[i].quantity ?? ""
+			}</small>
+            <small class="text-body-secondary">${
+				this._ingredients[i].unit ?? ""
+			}</small>`;
+		}
 	}
 }
 

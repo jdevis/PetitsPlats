@@ -21,20 +21,22 @@ const appliancesList = document.getElementById("filter-ustensils");
 function filterArrays() {
 	let newRecipes = defaultRecipes;
 	if (tagsSelected.length > 0) {
-		tagsSelected.forEach((tag) => {
+		for (let i = 0; i < tagsSelected.length; i++) {
 			newRecipes = newRecipes.filter(
 				(recipe) =>
-					recipe.name.toLowerCase().includes(tag) ||
-					recipe.description.toLowerCase().includes(tag) ||
-					recipe.appliance.toLowerCase().includes(tag) ||
+					recipe.name.toLowerCase().includes(tagsSelected[i]) ||
+					recipe.description
+						.toLowerCase()
+						.includes(tagsSelected[i]) ||
+					recipe.appliance.toLowerCase().includes(tagsSelected[i]) ||
 					recipe.ingredients.some((ing) =>
-						ing.ingredient.toLowerCase().includes(tag)
+						ing.ingredient.toLowerCase().includes(tagsSelected[i])
 					) ||
 					recipe.ustensils.some((ust) =>
-						ust.toLowerCase().includes(tag)
+						ust.toLowerCase().includes(tagsSelected[i])
 					)
 			);
-		});
+		}
 	}
 	return newRecipes;
 }
@@ -43,15 +45,17 @@ function updateFilters() {
 	ingredientsArray = [];
 	ustensilsArray = [];
 	appliancesArray = [];
-	recipesArray.forEach((recipe) => {
-		recipe.ingredients.forEach((ingredients) => {
-			ingredientsArray.push(ingredients.ingredient.toLowerCase());
-		});
-		recipe.ustensils.forEach((ustensil) => {
-			ustensilsArray.push(ustensil.toLowerCase());
-		});
-		appliancesArray.push(recipe.appliance.toLowerCase());
-	});
+	for (let i = 0; i < recipesArray.length; i++) {
+		for (let j = 0; j < recipesArray[i].ingredients.length; j++) {
+			ingredientsArray.push(
+				recipesArray[i].ingredients[j].ingredient.toLowerCase()
+			);
+		}
+		for (let k = 0; k < recipesArray[i].ustensils.length; k++) {
+			ustensilsArray.push(recipesArray[i].ustensils[k].toLowerCase());
+		}
+		appliancesArray.push(recipesArray[i].appliance.toLowerCase());
+	}
 	ingredientsArray = [...new Set(ingredientsArray)].sort((a, b) =>
 		a.localeCompare(b)
 	);
@@ -66,11 +70,11 @@ function updateFilters() {
 function displayData(data, idWrapper, template) {
 	if (template == "recipe") {
 		idWrapper.innerHTML = "";
-		data.forEach((recipe) => {
-			const card = new cardRecipe(recipe);
+		for (let i = 0; i < data.length; i++) {
+			const card = new cardRecipe(data[i]);
 			idWrapper.appendChild(card.cardTemplate());
 			card.ingredientsTemplate();
-		});
+		}
 	}
 	if (template == "tag") {
 		const tag = new tagsList(data);
@@ -81,23 +85,23 @@ function displayData(data, idWrapper, template) {
 		listItem = listItem[0];
 		idWrapper.innerHTML = "";
 		idWrapper.appendChild(listItem);
-		data.forEach((filter) => {
-			let filterLi = new filterList(filter);
+		for (let j = 0; j < data.length; j++) {
+			let filterLi = new filterList(data[j]);
 			filterLi = filterLi.filterTemplate();
 			let filterItem = filterLi.children[0];
-			tagsSelected.forEach((tag) => {
-				if (tag === filterItem.textContent) {
+			for (let k = 0; k < tagsSelected.length; k++) {
+				if (tagsSelected[k] === filterItem.textContent) {
 					filterItem.classList.add("selected");
 					filterLi.classList.add("position-relative");
 					let filterText = filterItem.textContent;
 					filterItem.innerHTML = filterText;
-					let button = new filterList(filter);
+					let button = new filterList(tagsSelected[k]);
 					button = button.buttonTemplate();
 					filterItem.after(button);
 				}
-			});
+			}
 			idWrapper.appendChild(filterLi);
-		});
+		}
 	}
 }
 
@@ -108,22 +112,21 @@ function updateTags(value) {
 function removeElementFromArray(value, array) {
 	if (array.includes(value)) {
 		let newArray = [];
-		array.forEach((elm) => {
-			if (elm !== value) {
-				newArray.push(elm);
+		for (let i = 0; i < array.length; i++) {
+			if (array[i] !== value) {
+				newArray.push(array[i]);
 			}
-		});
+		}
 		return newArray;
 	}
 	return array;
 }
-
 function countRecipes() {
 	let nb = cardsWrapper.querySelectorAll("article").length;
 	let value = new String();
-	tagsSelected.forEach((tag) => {
-		value += " " + tag;
-	});
+	for (let i = 0; i < tagsSelected.length; i++) {
+		value += " " + tagsSelected[i];
+	}
 	const nbreRecipeString = nb === 0 || nb === 1 ? " recette" : " recettes";
 	if (nb === 0) {
 		message.innerHTML = `Aucune recette ne contient <span class="fw-bold">${value}</span> vous pouvez chercher «
@@ -141,8 +144,8 @@ function listenToFormsAndFilters() {
 	const allForms = document.querySelectorAll("form");
 	const allLinks = document.querySelectorAll("[data-filter-link]");
 	let value = new String();
-	allForms.forEach((form) => {
-		form.addEventListener("submit", (e) => {
+	for (let i = 0; i < allForms.length; i++) {
+		allForms[i].addEventListener("submit", (e) => {
 			e.preventDefault();
 			value = e.target
 				.querySelector("input[type='search']")
@@ -155,9 +158,9 @@ function listenToFormsAndFilters() {
 				removeTags();
 			}
 		});
-	});
-	allLinks.forEach((link) => {
-		link.addEventListener("click", (e) => {
+	}
+	for (let j = 0; j < allLinks.length; j++) {
+		allLinks[j].addEventListener("click", (e) => {
 			e.preventDefault();
 			value = e.target.textContent;
 			updateTags(value);
@@ -165,24 +168,24 @@ function listenToFormsAndFilters() {
 			init();
 			removeTags();
 		});
-	});
+	}
 }
 
 function removeTags() {
 	const buttons = document.querySelectorAll("[data-button-remove]");
 	const aliveTags = tagsWrapper.childNodes;
-	buttons.forEach((button) => {
-		button.addEventListener("click", (e) => {
+	for (let i = 0; i < buttons.length; i++) {
+		buttons[i].addEventListener("click", (e) => {
 			const value = e.target.parentNode.textContent;
-			aliveTags.forEach((e) => {
-				if (e.textContent === value) {
-					e.remove();
+			for (let j = 0; j < aliveTags.length; j++) {
+				if (aliveTags[j].textContent === value) {
+					aliveTags[j].remove();
 				}
-			});
+			}
 			tagsSelected = removeElementFromArray(value, tagsSelected);
 			init();
 		});
-	});
+	}
 }
 
 /** Init */
