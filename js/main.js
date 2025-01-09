@@ -153,7 +153,7 @@ function listenToForm() {
 			if (value.length > 2 && !tagsSelected.includes(value)) {
 				updateTags(value);
 				displayData(value, tagsWrapper, "tag");
-				init();
+				assemblingSequences();
 				removeTags();
 			}
 		});
@@ -168,7 +168,7 @@ function listenToFilters() {
 			value = e.target.textContent;
 			updateTags(value);
 			displayData(value, tagsWrapper, "tag");
-			init();
+			assemblingSequences();
 			removeTags();
 		});
 	}
@@ -186,13 +186,13 @@ function removeTags() {
 				}
 			}
 			tagsSelected = removeElementFromArray(value, tagsSelected);
-			init();
+			assemblingSequences();
 		});
 	}
 }
 
 /** Init */
-function init() {
+function assemblingSequences() {
 	console.time("loopFor");
 	// update recipes
 	recipesArray = filterArrays();
@@ -210,5 +210,5 @@ function init() {
 	listenToFilters();
 	console.timeEnd("loopFor");
 }
-init();
+assemblingSequences();
 listenToForm();
