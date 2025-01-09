@@ -137,9 +137,8 @@ tarte aux pommes », « poisson », etc.... `;
 }
 
 /** Listeners */
-function listenToFormsAndFilters() {
+function listenToForms() {
 	const allForms = document.querySelectorAll("form");
-	const allLinks = document.querySelectorAll("[data-filter-link]");
 	let value = new String();
 	allForms.forEach((form) => {
 		form.addEventListener("submit", (e) => {
@@ -151,23 +150,27 @@ function listenToFormsAndFilters() {
 			if (value.length > 2 && !tagsSelected.includes(value)) {
 				updateTags(value);
 				displayData(value, tagsWrapper, "tag");
-				init();
+				assemblingSequences();
 				removeTags();
 			}
 		});
 	});
+}
+function listenToFilters() {
+	const allLinks = document.querySelectorAll("[data-filter-link]");
+	let value = new String();
+
 	allLinks.forEach((link) => {
 		link.addEventListener("click", (e) => {
 			e.preventDefault();
 			value = e.target.textContent;
 			updateTags(value);
 			displayData(value, tagsWrapper, "tag");
-			init();
+			assemblingSequences();
 			removeTags();
 		});
 	});
 }
-
 function removeTags() {
 	const buttons = document.querySelectorAll("[data-button-remove]");
 	const aliveTags = tagsWrapper.childNodes;
@@ -180,13 +183,14 @@ function removeTags() {
 				}
 			});
 			tagsSelected = removeElementFromArray(value, tagsSelected);
-			init();
+			assemblingSequences();
 		});
 	});
 }
 
 /** Init */
-function init() {
+function assemblingSequences() {
+	console.time("loop forEach");
 	// update recipes
 	recipesArray = filterArrays();
 	//update filters
@@ -199,7 +203,10 @@ function init() {
 	displayData(appliancesArray, appliancesList, "filterList");
 	//update and display number of recipes
 	countRecipes();
-	// add listeners on forms and filters
-	listenToFormsAndFilters();
+	// add listeners on filters
+	listenToFilters();
+	console.timeEnd("loop forEach");
 }
-init();
+assemblingSequences();
+// add listeners on forms
+listenToForms();
