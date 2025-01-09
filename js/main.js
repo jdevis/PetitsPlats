@@ -140,9 +140,8 @@ tarte aux pommes », « poisson », etc.... `;
 }
 
 /** Listeners */
-function listenToFormsAndFilters() {
+function listenToForm() {
 	const allForms = document.querySelectorAll("form");
-	const allLinks = document.querySelectorAll("[data-filter-link]");
 	let value = new String();
 	for (let i = 0; i < allForms.length; i++) {
 		allForms[i].addEventListener("submit", (e) => {
@@ -159,6 +158,10 @@ function listenToFormsAndFilters() {
 			}
 		});
 	}
+}
+function listenToFilters() {
+	const allLinks = document.querySelectorAll("[data-filter-link]");
+	let value = new String();
 	for (let j = 0; j < allLinks.length; j++) {
 		allLinks[j].addEventListener("click", (e) => {
 			e.preventDefault();
@@ -190,6 +193,7 @@ function removeTags() {
 
 /** Init */
 function init() {
+	console.time("loopFor");
 	// update recipes
 	recipesArray = filterArrays();
 	//update filters
@@ -203,6 +207,8 @@ function init() {
 	//update and display number of recipes
 	countRecipes();
 	// add listeners on forms and filters
-	listenToFormsAndFilters();
+	listenToFilters();
+	console.timeEnd("loopFor");
 }
 init();
+listenToForm();
