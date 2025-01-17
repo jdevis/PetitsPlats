@@ -9,6 +9,8 @@ let tagsSelected = new Array();
 let ingredientsArray = new Array();
 let ustensilsArray = new Array();
 let appliancesArray = new Array();
+//Regex
+const textRegex = /^[a-zA-Z]{2,}$/;
 // Containers
 const cardsWrapper = document.getElementById("recipeCards");
 const tagsWrapper = document.getElementById("tagsContainer");
@@ -147,11 +149,14 @@ function listenToForms() {
 				.querySelector("input[type='search']")
 				.value.trim()
 				.toLowerCase();
-			if (value.length > 2 && !tagsSelected.includes(value)) {
+			if (textRegex.test(value) && !tagsSelected.includes(value)) {
 				updateTags(value);
 				displayData(value, tagsWrapper, "tag");
 				assemblingSequences();
 				removeTags();
+			} else {
+				message.textContent = `votre recherche n'est pas valide: ${value}`;
+				message.classList.remove("d-none");
 			}
 		});
 	});
@@ -190,7 +195,6 @@ function removeTags() {
 
 /** Init */
 function assemblingSequences() {
-	console.time("loop forEach");
 	// update recipes
 	recipesArray = filterArrays();
 	//update filters
@@ -205,7 +209,6 @@ function assemblingSequences() {
 	countRecipes();
 	// add listeners on filters
 	listenToFilters();
-	console.timeEnd("loop forEach");
 }
 assemblingSequences();
 // add listeners on forms
